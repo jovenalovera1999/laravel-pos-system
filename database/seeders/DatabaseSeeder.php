@@ -3,6 +3,14 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\FirstName;
+use App\Models\Gender;
+use App\Models\LastName;
+use App\Models\MiddleName;
+use App\Models\Role;
+use App\Models\SuffixName;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,5 +26,34 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        LastName::factory()->create([
+            'last_name' => null,
+        ]);
+
+        SuffixName::factory()->create([
+            'suffix_name' => null,
+        ]);
+
+        Gender::factory()->create([
+            'gender' => 'MALE',
+        ]);
+
+        Gender::factory()->create([
+            'gender' => 'FEMALE',
+        ]);
+
+        Role::factory()->create([
+            'role' => 'ADMINISTRATOR',
+        ]);
+
+        Role::factory()->create([
+            'role' => 'EMPLOYEE',
+        ]);
+
+        FirstName::factory(10)->create();
+        LastName::factory(11)->create();
+        SuffixName::factory(11)->create();
+        User::factory(40)->create();
     }
 }

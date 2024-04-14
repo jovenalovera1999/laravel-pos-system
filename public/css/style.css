@@ -8,8 +8,13 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+* {
+    font-family: sans-serif;
+    font-size: 10pt;
+}
+
 body {
-    font-family: "SF Pro Regular", sans-serif;
+    /* font-family: sans-serif; */
     background: white;
     color: black;
 }

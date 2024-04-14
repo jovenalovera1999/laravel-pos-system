@@ -13,8 +13,9 @@
         <nav id="navbar" class="nav-menu navbar">
             <ul>
                 <li><a href="#"><span>DASHBOARD</span></a></li>
-                <li><a href="#"><span>POS</span></a></li>
+                <li><a href="#"><span>ORDER</span></a></li>
                 <li><a href="#"><span>PRODUCTS</span></a></li>
+                <li><a href="#"><span>TRANSACTIONS</span></a></li>
                 <li><a href="#"><span>USERS</span></a></li>
             </ul>
         </nav>
