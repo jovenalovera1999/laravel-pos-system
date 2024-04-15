@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('user.index');
+    return view('dashboard.index');
+});
+
+Route::controller(UserController::class)->group(function() {
+    Route::get('/user/list', 'index')->name('userList');
+    Route::get('/user/view/{id}', 'show')->name('userView');
+
+    Route::post('/user/store', 'store')->name('userStore');
 });

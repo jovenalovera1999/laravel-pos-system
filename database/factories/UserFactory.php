@@ -24,10 +24,10 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'first_name_id' => fake()->numberBetween(1, 10),
-            'middle_name_id' => fake()->numberBetween(1, 11),
-            'last_name_id' => fake()->numberBetween(2, 11),
-            'suffix_name_id' => fake()->numberBetween(1, 11),
+            'first_name_id' => fake()->numberBetween(1, 20),
+            'middle_name_id' => fake()->numberBetween(1, 20),
+            'last_name_id' => fake()->numberBetween(2, 20),
+            'suffix_name_id' => fake()->numberBetween(1, 20),
             'age' => fake()->numberBetween(18, 50),
             'birth_date' => fake()->date(),
             'gender_id' => fake()->numberBetween(1, 2),

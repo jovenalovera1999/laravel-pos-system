@@ -17,7 +17,7 @@ class MiddleNameFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'middle_name' => strtoupper(fake()->lastName()),
         ];
     }
 }

@@ -27,6 +27,10 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+        MiddleName::factory()->create([
+            'middle_name' => null,
+        ]);
+
         LastName::factory()->create([
             'last_name' => null,
         ]);
@@ -51,9 +55,10 @@ class DatabaseSeeder extends Seeder
             'role' => 'EMPLOYEE',
         ]);
 
-        FirstName::factory(10)->create();
-        LastName::factory(11)->create();
-        SuffixName::factory(11)->create();
+        FirstName::factory(20)->create();
+        MiddleName::factory(20)->create();
+        LastName::factory(20)->create();
+        SuffixName::factory(20)->create();
         User::factory(40)->create();
     }
 }
