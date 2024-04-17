@@ -20,22 +20,22 @@ class UserController extends Controller
             ->leftJoin('roles', 'users.role_id', '=', 'roles.role_id')
             ->orderBy('last_names.last_name', 'asc');
 
-            if(request()->has('search')) {
-                $searchTerm = request()->get('search');
+        if(request()->has('search')) {
+            $searchTerm = request()->get('search');
 
-                if($searchTerm) {
-                    $users = $users->where(function($query) use ($searchTerm) {
-                        $query->where('first_names.first_name', 'like', "%$searchTerm%")
-                            ->orWhere('middle_names.middle_name', 'like', "%$searchTerm%")
-                            ->orWhere('last_names.last_name', 'like', "%$searchTerm%")
-                            ->orWhere('users.email_address', 'like', "%$searchTerm%")
-                            ->orWhere('roles.role', 'like', "%$searchTerm%");
-                    });
-                }
+            if($searchTerm) {
+                $users = $users->where(function($query) use ($searchTerm) {
+                    $query->where('first_names.first_name', 'like', "%$searchTerm%")
+                        ->orWhere('middle_names.middle_name', 'like', "%$searchTerm%")
+                        ->orWhere('last_names.last_name', 'like', "%$searchTerm%")
+                        ->orWhere('users.email_address', 'like', "%$searchTerm%")
+                        ->orWhere('roles.role', 'like', "%$searchTerm%");
+                });
             }
+        }
 
-            $users = $users->paginate(25)
-                ->appends(['search' => request()->get('search')]);
+        $users = $users->paginate(25)
+            ->appends(['search' => request()->get('search')]);
 
         return view('user.index', compact('genders', 'roles', 'users'));
     }
@@ -55,6 +55,18 @@ class UserController extends Controller
             'username' => ['required', 'min:6', 'max:12'],
             'password' => ['required', 'confirmed', 'min:6', 'max:15'],
             'password_confirmation' => ['required', 'min:6', 'max:15'],
+            'role_id' => ['required'],
+        ], [
+            'first_name_id.required' => 'The first name field is required.',
+            'middle_name_id.required' => 'The middle name field is required.',
+            'last_name_id.required' => 'The last name field is required.',
+            'suffix_name_id.required' => 'The suffix name field is required.',
+            'gender_id.required' => 'The gender field is required.',
+            'role_id.required' => 'The role field is required.',
         ]);
+    }
+
+    public function update(Request $request, $id) {
+        return dd($request);
     }
 }

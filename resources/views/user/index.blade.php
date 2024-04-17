@@ -51,8 +51,10 @@
                                 <td>{{ $user->role}}</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Action Buttons">
-                                        <a href="#" class="btn btn-primary">VIEW</a>
-                                        <a href="#" class="btn btn-success">EDIT</a>
+                                        <button type="button" class="btn btn-primary" data-user_id={{ $user->user_id }} data-first_name="{{ $user->first_name }}" data-middle_name="{{ $user->middle_name }}" data-last_name="{{ $user->last_name }}" data-suffix_name="{{ $user->suffix_name }}" data-age="{{ $user->age }}" data-birth_date="{{ $user->birth_date }}" data-gender_id="{{ $user->gender_id }}" data-gender={{ $user->gender }} data-address="{{ $user->address }}" data-contact_number="{{ $user->contact_number }}" data-email_address="{{ $user->email_address }}" data-username="{{ $user->username }}" data-role_id="{{ $user->role_id }}" data-role={{ $user->role }} data-bs-toggle="modal" data-bs-target="#viewUserModal" >VIEW</button>
+
+                                        <button type="button" class="btn btn-success" data-user_id={{ $user->user_id }} data-first_name="{{ $user->first_name }}" data-middle_name="{{ $user->middle_name }}" data-last_name="{{ $user->last_name }}" data-suffix_name="{{ $user->suffix_name }}" data-age="{{ $user->age }}" data-birth_date="{{ $user->birth_date }}" data-gender_id="{{ $user->gender_id }}" data-gender="{{ $user->gender }}" data-address="{{ $user->address }}" data-contact_number="{{ $user->contact_number }}"  data-email_address="{{ $user->email_address }}" data-username="{{ $user->username }}" data-role_id="{{ $user->role_id }}" data-role="{{ $user->role }}" data-bs-toggle="modal" data-bs-target="#editUserModal" >EDIT</button>
+
                                         <a href="#" class="btn btn-danger">DELETE</a>
                                     </div>
                                 </td>
@@ -67,114 +69,89 @@
     </div>
 </main>
 
-<!-- Add User Modal -->
-<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addUserModalLabel">ADD USER</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('userStore') }}" method="post">
-                    @csrf
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="first_name" class="form-label">FIRST NAME</label>
-                                <input type="text" class="form-control" id="first_name_id" name="first_name" />
-                                @error('first_name_id') <p class="text-danger">{{ $message }}</p> @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label for="middle_name" class="form-label">MIDDLE NAME</label>
-                                <input type="text" class="form-control" id="middle_name_id" name="middle_name" />
-                                @error('middle_name_id') <p class="text-danger">{{ $message }}</p> @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label for="last_name" class="form-label">LAST NAME</label>
-                                <input type="text" class="form-control" id="last_name_id" name="last_name" />
-                                @error('last_name_id') <p class="text-danger">{{ $message }}</p> @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label for="suffix_name" class="form-label">SUFFIX NAME</label>
-                                <input type="text" class="form-control" id="suffix_name_id" name="suffix_name" />
-                                @error('suffix_name_id') <p class="text-danger">{{ $message }}</p> @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="age" class="form-label">AGE</label>
-                                <input type="text" class="form-control" id="age" name="age" />
-                                @error('age') <p class="text-danger">{{ $message }}</p> @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label for="birth_date" class="form-label">BIRTH DATE</label>
-                                <input type="date" class="form-control" id="birth_date" name="birth_date" />
-                                @error('birth_date') <p class="text-danger">{{ $message }}</p> @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label for="gender_id" class="form-label">GENDER</label>
-                                <select class="form-select" id="gender_id" name="gender_id">
-                                    <option value="" selected>N/A</option>
-                                    @foreach ($genders as $gender)
-                                        <option value="{{ $gender->gender_id }}">{{ $gender->gender }}</option>
-                                    @endforeach
-                                </select>
-                                @error('gender_id') <p class="text-danger">{{ $message }}</p> @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label for="address" class="form-label">ADDRESS</label>
-                                <input type="text" class="form-control" id="address" name="address" />
-                                @error('address') <p class="text-danger">{{ $message }}</p> @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label for="contact_number" class="form-label">CONTACT NUMBER</label>
-                                <input type="text" class="form-control" id="contact_number" name="contact_number" />
-                                @error('contact_number') <p class="text-danger">{{ $message }}</p> @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="email_address" class="form-label">EMAIL ADDRESS</label>
-                                <input type="text" class="form-control" id="email_address" name="email_address" />
-                                @error('email_address') <p class="text-danger">{{ $message }}</p> @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label for="username" class="form-label">USERNAME</label>
-                                <input type="text" class="form-control" id="username" name="username" />
-                                @error('username') <p class="text-danger">{{ $message }}</p> @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">PASSWORD</label>
-                                <input type="text" class="form-control" id="password" name="password" />
-                                @error('password') <p class="text-danger">{{ $message }}</p> @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label for="password_confirmation" class="form-label">CONFIRM PASSWORD</label>
-                                <input type="text" class="form-control" id="password_confirmation"
-                                    name="password_confirmation" />
-                                @error('password_confirmation') <p class="text-danger">{{ $message }}</p> @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label for="role_id" class="form-label">ROLE</label>
-                                <select class="form-select" id="role_id" name="role_id">
-                                    <option value="" selected>N/A</option>
-                                    @foreach ($roles as $role)
-                                        <option value="{{ $role->role_id }}">{{ $role->role }}</option>
-                                    @endforeach
-                                </select>
-                                @error('role_id') {{ $message }} @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
-                        <button type="submit" class="btn btn-primary">SAVE</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+@include('include.user_modal')
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let addUserModal = new bootstrap.Modal(document.getElementById('addUserModal'));
+        let editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'));
+        
+        // Check if Laravel validation errors exist
+        @if ($errors->any())
+            addUserModal.show();
+        @endif
+    });
+</script>
+
+<script>
+    document.getElementById('viewUserModal').addEventListener('show.bs.modal', function(event) {
+        const btnView = event.relatedTarget;
+
+        const userId = btnView.getAttribute('data-user_id');
+        const firstName = btnView.getAttribute('data-first_name');
+        const middleName = btnView.getAttribute('data-middle_name');
+        const lastName = btnView.getAttribute('data-last_name');
+        const suffixName = btnView.getAttribute('data-suffix_name');
+        const age = btnView.getAttribute('data-age');
+        const birthDate = btnView.getAttribute('data-birth_date');
+        const genderId = btnView.getAttribute('data-gender_id');
+        const gender = btnView.getAttribute('data-gender');
+        const address = btnView.getAttribute('data-address');
+        const contactNumber = btnView.getAttribute('data-contact_number');
+        const emailAddress = btnView.getAttribute('data-email_address');
+        const username = btnView.getAttribute('data-username');
+        const roleId = btnView.getAttribute('data-role_id');
+        const role = btnView.getAttribute('data-role');
+        
+        const modal = this;
+        
+        modal.querySelector('#first_name_id').value = firstName;
+        modal.querySelector('#middle_name_id').value = middleName;
+        modal.querySelector('#last_name_id').value = lastName;
+        modal.querySelector('#suffix_name_id').value = suffixName;
+        modal.querySelector('#age').value = age;
+        modal.querySelector('#birth_date').value = birthDate;
+        modal.querySelector('#gender_id').value = gender;
+        modal.querySelector('#address').value = address;
+        modal.querySelector('#contact_number').value = contactNumber;
+        modal.querySelector('#email_address').value = emailAddress;
+        modal.querySelector('#username').value = username;
+        modal.querySelector('#role_id').value = role;
+    });
+
+    document.getElementById('editUserModal').addEventListener('show.bs.modal', function(event) {
+        const btnEdit = event.relatedTarget;
+
+        const userId = btnEdit.getAttribute('data-user_id');
+        const firstName = btnEdit.getAttribute('data-first_name');
+        const middleName = btnEdit.getAttribute('data-middle_name');
+        const lastName = btnEdit.getAttribute('data-last_name');
+        const suffixName = btnEdit.getAttribute('data-suffix_name');
+        const age = btnEdit.getAttribute('data-age');
+        const birthDate = btnEdit.getAttribute('data-birth_date');
+        const genderId = btnEdit.getAttribute('data-gender_id');
+        const address = btnEdit.getAttribute('data-address');
+        const contactNumber = btnEdit.getAttribute('data-contact_number');
+        const emailAddress = btnEdit.getAttribute('data-email_address');
+        const username = btnEdit.getAttribute('data-username');
+        const roleId = btnEdit.getAttribute('data-role_id');
+
+        const modal = this;
+
+        modal.querySelector('#user_update_form').action = '/user/update/' + userId;
+        modal.querySelector('#first_name_id').value = firstName;
+        modal.querySelector('#middle_name_id').value = middleName;
+        modal.querySelector('#last_name_id').value = lastName;
+        modal.querySelector('#suffix_name_id').value = suffixName;
+        modal.querySelector('#age').value = age;
+        modal.querySelector('#birth_date').value = birthDate;
+        modal.querySelector('#gender_id').value = genderId;
+        modal.querySelector('#address').value = address;
+        modal.querySelector('#contact_number').value = contactNumber;
+        modal.querySelector('#email_address').value = emailAddress;
+        modal.querySelector('#username').value = username;
+        modal.querySelector('#role_id').value = roleId;
+    });
+</script>
 
 @endsection
