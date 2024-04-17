@@ -16,7 +16,7 @@
                 <li><a href="#"><span>ORDER</span></a></li>
                 <li><a href="#"><span>PRODUCTS</span></a></li>
                 <li><a href="#"><span>TRANSACTIONS</span></a></li>
-                <li><a href="{{ route('userList') }}"><span>USERS</span></a></li>
+                <li><a href="/user/list"><span>USERS</span></a></li>
             </ul>
         </nav>
     </div>

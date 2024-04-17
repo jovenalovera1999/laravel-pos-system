@@ -7,32 +7,32 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('userStore') }}" method="post">
+                <form action="/user/store" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="first_name" class="form-label">FIRST NAME</label>
                                 <input type="text" class="form-control" id="first_name_id" name="first_name_id"
-                                    value="{{ old('first_name') }}" />
+                                    value="{{ old('first_name_id') }}" />
                                 @error('first_name_id') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="middle_name" class="form-label">MIDDLE NAME</label>
                                 <input type="text" class="form-control" id="middle_name_id" name="middle_name_id"
-                                    value="{{ old('middle_name') }}" />
+                                    value="{{ old('middle_name_id') }}" />
                                 @error('middle_name_id') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="last_name" class="form-label">LAST NAME</label>
                                 <input type="text" class="form-control" id="last_name_id" name="last_name_id"
-                                    value="{{ old('last_name') }}" />
+                                    value="{{ old('last_name_id') }}" />
                                 @error('last_name_id') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="suffix_name" class="form-label">SUFFIX NAME</label>
                                 <input type="text" class="form-control" id="suffix_name_id" name="suffix_name_id"
-                                    value="{{ old('suffix_name') }}" />
+                                    value="{{ old('suffix_name_id') }}" />
                                 @error('suffix_name_id') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                         </div>
@@ -54,10 +54,10 @@
                                     <option value="" selected>N/A</option>
                                     @foreach ($genders as $gender)
                                     <option value="{{ $gender->gender_id }}">{{ $gender->gender }}</option>
-                                    @if (old('gender_id') == $gender->gender_id)
-                                    <option value="{{ $gender->gender_id }}" selected hidden>{{ $gender->gender }}
-                                    </option>
-                                    @endif
+                                        @if (old('gender_id') == $gender->gender_id)
+                                            <option value="{{ $gender->gender_id }}" selected hidden>{{ $gender->gender }}
+                                        </option>
+                                        @endif
                                     @endforeach
                                 </select>
                                 @error('gender_id') <p class="text-danger">{{ $message }}</p> @enderror
@@ -101,9 +101,9 @@
                                     <option value="" selected>N/A</option>
                                     @foreach ($roles as $role)
                                     <option value="{{ $role->role_id }}">{{ $role->role }}</option>
-                                    @if (old('role_id') == $role->role_id)
-                                    <option value="{{ $role->role_id }}" selected hidden>{{ $role->role }}</option>
-                                    @endif
+                                        @if (old('role_id') == $role->role_id)
+                                            <option value="{{ $role->role_id }}" selected hidden>{{ $role->role }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                                 @error('role_id') <p class="text-danger">{{ $message }}</p> @enderror
@@ -218,25 +218,25 @@
                             <div class="mb-3">
                                 <label for="first_name" class="form-label">FIRST NAME</label>
                                 <input type="text" class="form-control" id="first_name_id" name="first_name_id"
-                                    value="{{ old('first_name') }}" />
+                                    value="{{ old('first_name_id') }}" />
                                 @error('first_name_id') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="middle_name" class="form-label">MIDDLE NAME</label>
                                 <input type="text" class="form-control" id="middle_name_id" name="middle_name_id"
-                                    value="{{ old('middle_name') }}" />
+                                    value="{{ old('middle_name_id') }}" />
                                 @error('middle_name_id') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="last_name" class="form-label">LAST NAME</label>
                                 <input type="text" class="form-control" id="last_name_id" name="last_name_id"
-                                    value="{{ old('last_name') }}" />
+                                    value="{{ old('last_name_id') }}" />
                                 @error('last_name_id') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="suffix_name" class="form-label">SUFFIX NAME</label>
                                 <input type="text" class="form-control" id="suffix_name_id" name="suffix_name_id"
-                                    value="{{ old('suffix_name') }}" />
+                                    value="{{ old('suffix_name_id') }}" />
                                 @error('suffix_name_id') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                         </div>
@@ -256,36 +256,35 @@
                                 <label for="gender_id" class="form-label">GENDER</label>
                                 <select class="form-select" id="gender_id" name="gender_id">
                                     <option value="" selected>N/A</option>
-                                    @foreach ($genders as $gender)
-                                    <option value="{{ $gender->gender_id }}">{{ $gender->gender }}</option>
-                                    @if (old('gender_id') == $gender->gender_id)
-                                    <option value="{{ $gender->gender_id }}" selected hidden>{{ $gender->gender }}
-                                    </option>
-                                    @endif
-                                    @endforeach
+                                        @foreach ($genders as $gender)
+                                        <option value="{{ $gender->gender_id }}">{{ $gender->gender }}</option>
+                                            @if (old('gender_id') == $gender->gender_id)
+                                                <option value="{{ $gender->gender_id }}" selected hidden>{{ $gender->gender }}</option>
+                                            @endif
+                                        @endforeach
                                 </select>
                                 @error('gender_id') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="address" class="form-label">ADDRESS</label>
-                                <input type="text" class="form-control" id="address" name="address" />
+                                <input type="text" class="form-control" id="address" name="address" value="{{ old('address') }}" />
                                 @error('address') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="contact_number" class="form-label">CONTACT NUMBER</label>
-                                <input type="text" class="form-control" id="contact_number" name="contact_number" />
+                                <input type="text" class="form-control" id="contact_number" name="contact_number" value="{{ old('contact_number') }}" />
                                 @error('contact_number') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="email_address" class="form-label">EMAIL ADDRESS</label>
-                                <input type="text" class="form-control" id="email_address" name="email_address" />
+                                <input type="text" class="form-control" id="email_address" name="email_address" value="{{ old('email_address') }}" />
                                 @error('email_address') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="username" class="form-label">USERNAME</label>
-                                <input type="text" class="form-control" id="username" name="username" />
+                                <input type="text" class="form-control" id="username" name="username" value="{{ old('username') }}" />
                                 @error('username') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3">
@@ -293,10 +292,10 @@
                                 <select class="form-select" id="role_id" name="role_id">
                                     <option value="" selected>N/A</option>
                                     @foreach ($roles as $role)
-                                    <option value="{{ $role->role_id }}">{{ $role->role }}</option>
-                                    @if (old('role_id') == $role->role_id)
-                                    <option value="{{ $role->role_id }}" selected hidden>{{ $role->role }}</option>
-                                    @endif
+                                        <option value="{{ $role->role_id }}">{{ $role->role }}</option>
+                                            @if (old('role_id') == $role->role_id)
+                                                <option value="{{ $role->role_id }}" selected hidden>{{ $role->role }}</option>
+                                            @endif
                                     @endforeach
                                 </select>
                                 @error('role_id') <p class="text-danger">{{ $message }}</p> @enderror

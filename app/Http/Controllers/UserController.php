@@ -67,6 +67,28 @@ class UserController extends Controller
     }
 
     public function update(Request $request, $id) {
-        return dd($request);
+        $validated = $request->validate([
+            'first_name_id' => ['required', 'max:55'],
+            'middle_name_id' => ['nullable', 'max:55'],
+            'last_name_id' => ['required', 'max:55'],
+            'suffix_name_id' => ['nullable', 'max:10'],
+            'age' => ['required', 'numeric'],
+            'birth_date' => ['required', 'date'],
+            'gender_id' => ['required'],
+            'address' => ['required', 'max:55'],
+            'contact_number' => ['required', 'max:20'],
+            'email_address' => ['required', 'email'],
+            'username' => ['required', 'min:6', 'max:12'],
+            'role_id' => ['required'],
+        ], [
+            'first_name_id.required' => 'The first name field is required.',
+            'middle_name_id.required' => 'The middle name field is required.',
+            'last_name_id.required' => 'The last name field is required.',
+            'suffix_name_id.required' => 'The suffix name field is required.',
+            'gender_id.required' => 'The gender field is required.',
+            'role_id.required' => 'The role field is required.',
+        ]);
+
+        return dd($validated);
     }
 }

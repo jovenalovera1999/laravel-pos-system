@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
 
 Route::controller(UserController::class)->group(function() {
-    Route::get('/user/list', 'index')->name('userList');
-    Route::post('/user/store', 'store')->name('userStore');
-    Route::put('/user/update/{id}', 'update')->name('userUpdate');
+    Route::get('/user/list', 'index');
+    Route::post('/user/store', 'store');
+    Route::put('/user/update/{id}', 'update');
 });

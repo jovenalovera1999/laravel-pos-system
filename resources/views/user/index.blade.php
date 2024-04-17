@@ -18,7 +18,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <form action="{{ route('userList') }}" method="get">
+                        <form action="/user/list" method="get">
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" id="search" name="search" placeholder="SEARCH"
                                     aria-label="SEARCH" aria-describedby="search-button" />
@@ -75,10 +75,9 @@
     document.addEventListener('DOMContentLoaded', function () {
         let addUserModal = new bootstrap.Modal(document.getElementById('addUserModal'));
         let editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'));
-        
-        // Check if Laravel validation errors exist
+
         @if ($errors->any())
-            addUserModal.show();
+            editUserModal.show();
         @endif
     });
 </script>
@@ -138,7 +137,9 @@
 
         const modal = this;
 
-        modal.querySelector('#user_update_form').action = '/user/update/' + userId;
+        const form = document.getElementById('user_update_form');
+        form.action = '/user/update/' + userId;
+
         modal.querySelector('#first_name_id').value = firstName;
         modal.querySelector('#middle_name_id').value = middleName;
         modal.querySelector('#last_name_id').value = lastName;
