@@ -19,7 +19,6 @@
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/glightbox.min.js') }}"></script>
     <script src="{{ asset('js/swiper-bundle.min.js') }}"></script>
-    <script src="{{ asset('js/modal.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>

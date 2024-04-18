@@ -12,9 +12,9 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h5 class="card-title">USERS</h5>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                    <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
                         ADD USER
-                    </button>
+                    </a>
                 </div>
                 <div class="row">
                     <div class="col">
@@ -51,11 +51,7 @@
                                 <td>{{ $user->role}}</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Action Buttons">
-                                        <button type="button" class="btn btn-primary" data-user_id={{ $user->user_id }} data-first_name="{{ $user->first_name }}" data-middle_name="{{ $user->middle_name }}" data-last_name="{{ $user->last_name }}" data-suffix_name="{{ $user->suffix_name }}" data-age="{{ $user->age }}" data-birth_date="{{ $user->birth_date }}" data-gender_id="{{ $user->gender_id }}" data-gender={{ $user->gender }} data-address="{{ $user->address }}" data-contact_number="{{ $user->contact_number }}" data-email_address="{{ $user->email_address }}" data-username="{{ $user->username }}" data-role_id="{{ $user->role_id }}" data-role={{ $user->role }} data-bs-toggle="modal" data-bs-target="#viewUserModal" >VIEW</button>
-
-                                        <button type="button" class="btn btn-success" data-user_id={{ $user->user_id }} data-first_name="{{ $user->first_name }}" data-middle_name="{{ $user->middle_name }}" data-last_name="{{ $user->last_name }}" data-suffix_name="{{ $user->suffix_name }}" data-age="{{ $user->age }}" data-birth_date="{{ $user->birth_date }}" data-gender_id="{{ $user->gender_id }}" data-gender="{{ $user->gender }}" data-address="{{ $user->address }}" data-contact_number="{{ $user->contact_number }}"  data-email_address="{{ $user->email_address }}" data-username="{{ $user->username }}" data-role_id="{{ $user->role_id }}" data-role="{{ $user->role }}" data-bs-toggle="modal" data-bs-target="#editUserModal" >EDIT</button>
-
-                                        <a href="#" class="btn btn-danger">DELETE</a>
+                                        <a href="#" class="btn btn-primary btn_view" data-bs-toggle="modal" data-bs-target="#viewUserModal" data-id="{{ $user->user_id }}">VIEW</a>
                                     </div>
                                 </td>
                             </tr>
@@ -72,87 +68,50 @@
 @include('include.user_modal')
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        let addUserModal = new bootstrap.Modal(document.getElementById('addUserModal'));
-        let editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'));
 
-        @if ($errors->any())
-            editUserModal.show();
-        @endif
+document.addEventListener('DOMContentLoaded', function() {
+    const btnView = document.querySelectorAll('.btn_view');
+    btnView.forEach(function(button) {
+        button.addEventListener('click', function() {
+            const id = this.dataset.id;
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState === XMLHttpRequest.DONE) {
+                    if(xhr.status === 200) {
+                        // console.log(xhr.responseText);
+                        const response = JSON.parse(xhr.responseText);
+                        const user = response; // Assuming the user data is directly under the response object
+                        
+                        // Log user data to console for debugging
+                        console.log(user);
+
+                        // Update input fields with user data when the modal is shown
+                        viewUserModal.addEventListener('shown.bs.modal', function() {
+                            document.getElementById('first_name_id').value = user.first_name || '';
+                            document.getElementById('middle_name_id').value = user.middle_name || '';
+                            document.getElementById('last_name_id').value = user.last_name || '';
+                            document.getElementById('suffix_name_id').value = user.suffix_name || '';
+                            document.getElementById('age').value = user.age || '';
+                            document.getElementById('birth_date').value = user.birth_date || '';
+                            document.getElementById('gender_id').value = user.gender_id || '';
+                            document.getElementById('address').value = user.address || '';
+                            document.getElementById('contact_number').value = user.contact_number || '';
+                            document.getElementById('email_address').value = user.email_address || '';
+                            document.getElementById('username').value = user.username || '';
+                            document.getElementById('role_id').value = user.role_id || '';
+                        });
+                    } else {
+                        console.log('Error fetching data');
+                    }
+                }
+            };
+
+            xhr.open('GET', '/user/view/' + id);
+            xhr.send();
+        });
     });
-</script>
+});
 
-<script>
-    document.getElementById('viewUserModal').addEventListener('show.bs.modal', function(event) {
-        const btnView = event.relatedTarget;
-
-        const userId = btnView.getAttribute('data-user_id');
-        const firstName = btnView.getAttribute('data-first_name');
-        const middleName = btnView.getAttribute('data-middle_name');
-        const lastName = btnView.getAttribute('data-last_name');
-        const suffixName = btnView.getAttribute('data-suffix_name');
-        const age = btnView.getAttribute('data-age');
-        const birthDate = btnView.getAttribute('data-birth_date');
-        const genderId = btnView.getAttribute('data-gender_id');
-        const gender = btnView.getAttribute('data-gender');
-        const address = btnView.getAttribute('data-address');
-        const contactNumber = btnView.getAttribute('data-contact_number');
-        const emailAddress = btnView.getAttribute('data-email_address');
-        const username = btnView.getAttribute('data-username');
-        const roleId = btnView.getAttribute('data-role_id');
-        const role = btnView.getAttribute('data-role');
-        
-        const modal = this;
-        
-        modal.querySelector('#first_name_id').value = firstName;
-        modal.querySelector('#middle_name_id').value = middleName;
-        modal.querySelector('#last_name_id').value = lastName;
-        modal.querySelector('#suffix_name_id').value = suffixName;
-        modal.querySelector('#age').value = age;
-        modal.querySelector('#birth_date').value = birthDate;
-        modal.querySelector('#gender_id').value = gender;
-        modal.querySelector('#address').value = address;
-        modal.querySelector('#contact_number').value = contactNumber;
-        modal.querySelector('#email_address').value = emailAddress;
-        modal.querySelector('#username').value = username;
-        modal.querySelector('#role_id').value = role;
-    });
-
-    document.getElementById('editUserModal').addEventListener('show.bs.modal', function(event) {
-        const btnEdit = event.relatedTarget;
-
-        const userId = btnEdit.getAttribute('data-user_id');
-        const firstName = btnEdit.getAttribute('data-first_name');
-        const middleName = btnEdit.getAttribute('data-middle_name');
-        const lastName = btnEdit.getAttribute('data-last_name');
-        const suffixName = btnEdit.getAttribute('data-suffix_name');
-        const age = btnEdit.getAttribute('data-age');
-        const birthDate = btnEdit.getAttribute('data-birth_date');
-        const genderId = btnEdit.getAttribute('data-gender_id');
-        const address = btnEdit.getAttribute('data-address');
-        const contactNumber = btnEdit.getAttribute('data-contact_number');
-        const emailAddress = btnEdit.getAttribute('data-email_address');
-        const username = btnEdit.getAttribute('data-username');
-        const roleId = btnEdit.getAttribute('data-role_id');
-
-        const modal = this;
-
-        const form = document.getElementById('user_update_form');
-        form.action = '/user/update/' + userId;
-
-        modal.querySelector('#first_name_id').value = firstName;
-        modal.querySelector('#middle_name_id').value = middleName;
-        modal.querySelector('#last_name_id').value = lastName;
-        modal.querySelector('#suffix_name_id').value = suffixName;
-        modal.querySelector('#age').value = age;
-        modal.querySelector('#birth_date').value = birthDate;
-        modal.querySelector('#gender_id').value = genderId;
-        modal.querySelector('#address').value = address;
-        modal.querySelector('#contact_number').value = contactNumber;
-        modal.querySelector('#email_address').value = emailAddress;
-        modal.querySelector('#username').value = username;
-        modal.querySelector('#role_id').value = roleId;
-    });
 </script>
 
 @endsection

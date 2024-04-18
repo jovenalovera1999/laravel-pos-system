@@ -20,6 +20,6 @@ Route::get('/', function () {
 
 Route::controller(UserController::class)->group(function() {
     Route::get('/user/list', 'index');
+    Route::get('/user/view/{id}', 'show');
     Route::post('/user/store', 'store');
-    Route::put('/user/update/{id}', 'update');
 });
