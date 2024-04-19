@@ -52,6 +52,7 @@
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Action Buttons">
                                         <a href="#" class="btn btn-primary btn_view" data-bs-toggle="modal" data-bs-target="#viewUserModal" data-id="{{ $user->user_id }}">VIEW</a>
+                                        <a href="#" class="btn btn-success btn_edit" data-bs-toggle="modal" data-bs-target="#editUserModal" data-id="{{ $user->user_id }}">EDIT</a>
                                     </div>
                                 </td>
                             </tr>
@@ -78,30 +79,24 @@ document.addEventListener('DOMContentLoaded', function() {
             xhr.onreadystatechange = function() {
                 if(xhr.readyState === XMLHttpRequest.DONE) {
                     if(xhr.status === 200) {
-                        // console.log(xhr.responseText);
-                        const response = JSON.parse(xhr.responseText);
-                        const user = response; // Assuming the user data is directly under the response object
+                        const user = JSON.parse(xhr.responseText);
                         
-                        // Log user data to console for debugging
-                        console.log(user);
-
-                        // Update input fields with user data when the modal is shown
-                        viewUserModal.addEventListener('shown.bs.modal', function() {
-                            document.getElementById('first_name_id').value = user.first_name || '';
-                            document.getElementById('middle_name_id').value = user.middle_name || '';
-                            document.getElementById('last_name_id').value = user.last_name || '';
-                            document.getElementById('suffix_name_id').value = user.suffix_name || '';
-                            document.getElementById('age').value = user.age || '';
-                            document.getElementById('birth_date').value = user.birth_date || '';
-                            document.getElementById('gender_id').value = user.gender_id || '';
-                            document.getElementById('address').value = user.address || '';
-                            document.getElementById('contact_number').value = user.contact_number || '';
-                            document.getElementById('email_address').value = user.email_address || '';
-                            document.getElementById('username').value = user.username || '';
-                            document.getElementById('role_id').value = user.role_id || '';
-                        });
+                        // Update input fields with user data and show the modal
+                        document.getElementById('view_first_name_id').value = user.first_name || '';
+                        document.getElementById('view_middle_name_id').value = user.middle_name || '';
+                        document.getElementById('view_last_name_id').value = user.last_name || '';
+                        document.getElementById('view_suffix_name_id').value = user.suffix_name || '';
+                        document.getElementById('view_age').value = user.age || '';
+                        document.getElementById('view_birth_date').value = user.birth_date || '';
+                        document.getElementById('view_gender_id').value = user.gender || '';
+                        document.getElementById('view_address').value = user.address || '';
+                        document.getElementById('view_contact_number').value = user.contact_number || '';
+                        document.getElementById('view_email_address').value = user.email_address || '';
+                        document.getElementById('view_username').value = user.username || '';
+                        document.getElementById('view_role_id').value = user.role || '';
+                        
                     } else {
-                        console.log('Error fetching data');
+                        console.error('Error fetching user data');
                     }
                 }
             };
@@ -110,6 +105,48 @@ document.addEventListener('DOMContentLoaded', function() {
             xhr.send();
         });
     });
+
+    const btnEdit = document.querySelectorAll('.btn_edit');
+    btnEdit.forEach(function(button) {
+        button.addEventListener('click', function() {
+            const id = this.dataset.id;
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState === XMLHttpRequest.DONE) {
+                    if(xhr.status === 200) {
+                        const user = JSON.parse(xhr.responseText);
+                        
+                        // Update input fields with user data and show the modal
+                        document.getElementById('edit_first_name_id').value = user.first_name || '';
+                        document.getElementById('edit_middle_name_id').value = user.middle_name || '';
+                        document.getElementById('edit_last_name_id').value = user.last_name || '';
+                        document.getElementById('edit_suffix_name_id').value = user.suffix_name || '';
+                        document.getElementById('edit_age').value = user.age || '';
+                        document.getElementById('edit_birth_date').value = user.birth_date || '';
+                        document.getElementById('edit_gender_id').value = user.gender_id || '';
+                        document.getElementById('edit_address').value = user.address || '';
+                        document.getElementById('edit_contact_number').value = user.contact_number || '';
+                        document.getElementById('edit_email_address').value = user.email_address || '';
+                        document.getElementById('edit_username').value = user.username || '';
+                        document.getElementById('edit_role_id').value = user.role_id || '';
+                        
+                        // Set the action attribute of the form to include the user ID
+                        document.getElementById('editUserForm').action = '/user/update/' + user.user_id;
+                    } else {
+                        console.error('Error fetching user data');
+                    }
+                }
+            };
+
+            xhr.open('GET', '/user/edit/' + id);
+            xhr.send();
+        });
+    });
+
+    @if ($errors->any())
+        const editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'));
+        editUserModal.show();
+    @endif
 });
 
 </script>

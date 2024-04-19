@@ -18,8 +18,14 @@ Route::get('/', function () {
     return view('dashboard.index');
 });
 
+Route::get('/order', function() {
+    return view('order.index');
+});
+
 Route::controller(UserController::class)->group(function() {
     Route::get('/user/list', 'index');
     Route::get('/user/view/{id}', 'show');
+    Route::get('/user/edit/{id}', 'edit');
     Route::post('/user/store', 'store');
+    Route::put('/user/update/{user}', 'update');
 });

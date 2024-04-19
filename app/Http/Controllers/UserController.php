@@ -78,7 +78,21 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id) {
+    public function edit($id)
+    {
+        $user = User::leftJoin('first_names', 'users.first_name_id', '=', 'first_names.first_name_id')
+            ->leftJoin('middle_names', 'users.middle_name_id', '=', 'middle_names.middle_name_id')
+            ->leftJoin('last_names', 'users.last_name_id', '=', 'last_names.last_name_id')
+            ->leftJoin('suffix_names', 'users.suffix_name_id', '=', 'suffix_names.suffix_name_id')
+            ->leftJoin('genders', 'users.gender_id', '=', 'genders.gender_id')
+            ->leftJoin('roles', 'users.role_id', '=', 'roles.role_id')
+            ->find($id);
+
+        return response()->json($user);
+    }
+
+    public function update(Request $request, User $user) {
+        $request->session()->put('userUpdate', true);
         $validated = $request->validate([
             'first_name_id' => ['required', 'max:55'],
             'middle_name_id' => ['nullable', 'max:55'],
