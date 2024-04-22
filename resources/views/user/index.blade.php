@@ -8,6 +8,7 @@
 
 <main id="main">
     <div class="container">
+        @include('include.messages')
         <div class="card mt-3">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -143,7 +144,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    @if ($errors->any())
+    @if ($errors->any() && session('action') == 'store')
+        const addUserModal = new bootstrap.Modal(document.getElementById('addUserModal'));
+        addUserModal.show();
+    @elseif ($errors->any() && session('action') == 'update')
         const editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'));
         editUserModal.show();
     @endif

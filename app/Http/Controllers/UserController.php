@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FirstName;
 use App\Models\Gender;
+use App\Models\LastName;
+use App\Models\MiddleName;
 use App\Models\Role;
+use App\Models\SuffixName;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -53,6 +58,7 @@ class UserController extends Controller
     }
 
     public function store(Request $request) {
+        session(['action' => 'store']);
         $validated = $request->validate([
             'first_name_id' => ['required', 'max:55'],
             'middle_name_id' => ['nullable', 'max:55'],
@@ -62,9 +68,9 @@ class UserController extends Controller
             'birth_date' => ['required', 'date'],
             'gender_id' => ['required'],
             'address' => ['required', 'max:55'],
-            'contact_number' => ['required', 'numeric', 'max:20'],
+            'contact_number' => ['required', 'max:20'],
             'email_address' => ['required', 'email'],
-            'username' => ['required', 'min:6', 'max:12'],
+            'username' => ['required', 'min:6', 'max:12', Rule::unique('users', 'username')],
             'password' => ['required', 'confirmed', 'min:6', 'max:15'],
             'password_confirmation' => ['required', 'min:6', 'max:15'],
             'role_id' => ['required'],
@@ -76,6 +82,26 @@ class UserController extends Controller
             'gender_id.required' => 'The gender field is required.',
             'role_id.required' => 'The role field is required.',
         ]);
+
+        $firstName = FirstName::firstOrCreate(['first_name' => $validated['first_name_id']]);
+        $validated['first_name_id'] = $firstName->first_name_id;
+
+        $middleName = MiddleName::firstOrCreate(['middle_name' => $validated['middle_name_id']]);
+        $validated['middle_name_id'] = $middleName->middle_name_id;
+
+        $lastName = LastName::firstOrCreate(['last_name' => $validated['last_name_id']]);
+        $validated['last_name_id'] = $lastName->last_name_id;
+
+        $suffixName = SuffixName::firstOrCreate(['suffix_name' => $validated['suffix_name_id']]);
+        $validated['suffix_name_id'] = $suffixName->suffix_name_id;
+
+        $validated['password'] = bcrypt($validated['password']);
+
+        User::create($validated);
+
+        return back()->with('message_success', 'User successfully added.');
+        
+        // return dd($validated);
     }
 
     public function edit($id)
@@ -92,7 +118,7 @@ class UserController extends Controller
     }
 
     public function update(Request $request, User $user) {
-        $request->session()->put('userUpdate', true);
+        session(['action' => 'update']);
         $validated = $request->validate([
             'first_name_id' => ['required', 'max:55'],
             'middle_name_id' => ['nullable', 'max:55'],

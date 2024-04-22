@@ -1,56 +1,56 @@
 <!-- Add User Modal -->
-<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+<div class="modal fade" id="addUserModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addUserModalLabel">ADD USER</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="/user/store" method="post">
-                    @csrf
+        <form action="/user/store" method="post">
+            @csrf
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fs-5" id="addUserModalLabel">ADD USER</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="mb-3">
-                                <label for="first_name" class="form-label">FIRST NAME</label>
-                                <input type="text" class="form-control" id="first_name_id" name="first_name_id"
+                                <label for="add_first_name_id" class="form-label">FIRST NAME</label>
+                                <input type="text" class="form-control" id="add_first_name_id" name="first_name_id"
                                     value="{{ old('first_name_id') }}" />
                                 @error('first_name_id') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="middle_name" class="form-label">MIDDLE NAME</label>
-                                <input type="text" class="form-control" id="middle_name_id" name="middle_name_id"
+                                <label for="add_middle_name_id" class="form-label">MIDDLE NAME</label>
+                                <input type="text" class="form-control" id="add_middle_name_id" name="middle_name_id"
                                     value="{{ old('middle_name_id') }}" />
                                 @error('middle_name_id') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="last_name" class="form-label">LAST NAME</label>
-                                <input type="text" class="form-control" id="last_name_id" name="last_name_id"
+                                <label for="add_last_name_id" class="form-label">LAST NAME</label>
+                                <input type="text" class="form-control" id="add_last_name_id" name="last_name_id"
                                     value="{{ old('last_name_id') }}" />
                                 @error('last_name_id') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="suffix_name" class="form-label">SUFFIX NAME</label>
-                                <input type="text" class="form-control" id="suffix_name_id" name="suffix_name_id"
+                                <label for="add_suffix_name_id" class="form-label">SUFFIX NAME</label>
+                                <input type="text" class="form-control" id="add_suffix_name_id" name="suffix_name_id"
                                     value="{{ old('suffix_name_id') }}" />
                                 @error('suffix_name_id') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3">
-                                <label for="age" class="form-label">AGE</label>
-                                <input type="text" class="form-control" id="age" name="age" value="{{ old('age') }}" />
+                                <label for="add_age" class="form-label">AGE</label>
+                                <input type="text" class="form-control" id="add_age" name="age" value="{{ old('age') }}" />
                                 @error('age') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="birth_date" class="form-label">BIRTH DATE</label>
-                                <input type="date" class="form-control" id="birth_date" name="birth_date"
+                                <label for="add_birth_date" class="form-label">BIRTH DATE</label>
+                                <input type="date" class="form-control" id="add_birth_date" name="birth_date"
                                     value="{{ old('birth_date') }}" />
                                 @error('birth_date') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="gender_id" class="form-label">GENDER</label>
-                                <select class="form-select" id="gender_id" name="gender_id">
+                                <label for="add_gender_id" class="form-label">GENDER</label>
+                                <select class="form-select" id="add_gender_id" name="gender_id">
                                     <option value="" selected>N/A</option>
                                     @foreach ($genders as $gender)
                                     <option value="{{ $gender->gender_id }}">{{ $gender->gender }}</option>
@@ -63,41 +63,41 @@
                                 @error('gender_id') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="address" class="form-label">ADDRESS</label>
-                                <input type="text" class="form-control" id="address" name="address" />
+                                <label for="add_address" class="form-label">ADDRESS</label>
+                                <input type="text" class="form-control" id="add_address" name="address" value="{{ old('address') }}" />
                                 @error('address') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="contact_number" class="form-label">CONTACT NUMBER</label>
-                                <input type="text" class="form-control" id="contact_number" name="contact_number" />
+                                <label for="add_contact_number" class="form-label">CONTACT NUMBER</label>
+                                <input type="text" class="form-control" id="add_contact_number" name="contact_number" value="{{ old('contact_number') }}" />
                                 @error('contact_number') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3">
-                                <label for="email_address" class="form-label">EMAIL ADDRESS</label>
-                                <input type="text" class="form-control" id="email_address" name="email_address" />
+                                <label for="add_email_address" class="form-label">EMAIL ADDRESS</label>
+                                <input type="text" class="form-control" id="add_email_address" name="email_address" value="{{ old('email_address') }}" />
                                 @error('email_address') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="username" class="form-label">USERNAME</label>
-                                <input type="text" class="form-control" id="username" name="username" />
+                                <label for="add_username" class="form-label">USERNAME</label>
+                                <input type="text" class="form-control" id="add_username" name="username" />
                                 @error('username') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="password" class="form-label">PASSWORD</label>
-                                <input type="text" class="form-control" id="password" name="password" />
+                                <label for="add_password" class="form-label">PASSWORD</label>
+                                <input type="password" class="form-control" id="add_password" name="password" />
                                 @error('password') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="password_confirmation" class="form-label">CONFIRM PASSWORD</label>
-                                <input type="text" class="form-control" id="password_confirmation"
+                                <label for="add_password_confirmation" class="form-label">CONFIRM PASSWORD</label>
+                                <input type="password" class="form-control" id="add_password_confirmation"
                                     name="password_confirmation" />
                                 @error('password_confirmation') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="role_id" class="form-label">ROLE</label>
-                                <select class="form-select" id="role_id" name="role_id">
+                                <label for="add_role_id" class="form-label">ROLE</label>
+                                <select class="form-select" id="add_role_id" name="role_id">
                                     <option value="" selected>N/A</option>
                                     @foreach ($roles as $role)
                                     <option value="{{ $role->role_id }}">{{ $role->role }}</option>
@@ -110,13 +110,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
-                        <button type="submit" class="btn btn-primary">SAVE</button>
-                    </div>
-                </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
+                    <button type="submit" class="btn btn-primary">SAVE</button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 
@@ -264,24 +264,24 @@
                             </div>
                             <div class="mb-3">
                                 <label for="edit_address" class="form-label">ADDRESS</label>
-                                <input type="text" class="form-control" id="edit_address" name="address" />
+                                <input type="text" class="form-control" id="edit_address" name="address" value="{{ old('address') }}" />
                                 @error('address') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="edit_contact_number" class="form-label">CONTACT NUMBER</label>
-                                <input type="text" class="form-control" id="edit_contact_number" name="contact_number" />
+                                <input type="text" class="form-control" id="edit_contact_number" name="contact_number" value="{{ old('contact_number') }}" />
                                 @error('contact_number') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="edit_email_address" class="form-label">EMAIL ADDRESS</label>
-                                <input type="text" class="form-control" id="edit_email_address" name="email_address" />
+                                <input type="text" class="form-control" id="edit_email_address" name="email_address" value="{{ old('email_address') }}" />
                                 @error('email_address') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="edit_username" class="form-label">USERNAME</label>
-                                <input type="text" class="form-control" id="edit_username" name="username" />
+                                <input type="text" class="form-control" id="edit_username" name="username" value="{{ old('username') }}" />
                                 @error('username') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
                             <div class="mb-3">
