@@ -60,44 +60,78 @@ class UserController extends Controller
     public function store(Request $request) {
         session(['action' => 'store']);
         $validated = $request->validate([
-            'first_name_id' => ['required', 'max:55'],
-            'middle_name_id' => ['nullable', 'max:55'],
-            'last_name_id' => ['required', 'max:55'],
-            'suffix_name_id' => ['nullable', 'max:10'],
-            'age' => ['required', 'numeric'],
-            'birth_date' => ['required', 'date'],
-            'gender_id' => ['required'],
-            'address' => ['required', 'max:55'],
-            'contact_number' => ['required', 'max:20'],
-            'email_address' => ['required', 'email'],
-            'username' => ['required', 'min:6', 'max:12', Rule::unique('users', 'username')],
-            'password' => ['required', 'confirmed', 'min:6', 'max:15'],
-            'password_confirmation' => ['required', 'min:6', 'max:15'],
-            'role_id' => ['required'],
+            'add_first_name_id' => ['required', 'max:55'],
+            'add_middle_name_id' => ['nullable', 'max:55'],
+            'add_last_name_id' => ['required', 'max:55'],
+            'add_suffix_name_id' => ['nullable', 'max:10'],
+            'add_age' => ['required', 'numeric'],
+            'add_birth_date' => ['required', 'date'],
+            'add_gender_id' => ['required'],
+            'add_address' => ['required', 'max:55'],
+            'add_contact_number' => ['required', 'max:20'],
+            'add_email_address' => ['required', 'email'],
+            'add_username' => ['required', 'min:6', 'max:12', Rule::unique('users', 'username')],
+            'add_password' => ['required', 'confirmed', 'min:6', 'max:15'],
+            'add_password_confirmation' => ['required', 'min:6', 'max:15'],
+            'add_role_id' => ['required'],
         ], [
-            'first_name_id.required' => 'The first name field is required.',
-            'middle_name_id.required' => 'The middle name field is required.',
-            'last_name_id.required' => 'The last name field is required.',
-            'suffix_name_id.required' => 'The suffix name field is required.',
-            'gender_id.required' => 'The gender field is required.',
-            'role_id.required' => 'The role field is required.',
+            'add_first_name_id.required' => 'The first name field is required.',
+            'add_middle_name_id.required' => 'The middle name field is required.',
+            'add_last_name_id.required' => 'The last name field is required.',
+            'add_suffix_name_id.required' => 'The suffix name field is required.',
+            'add_age.required' => 'The age field is required.',
+            'add_birth_date.required' => 'The birth date field is required.',
+            'add_birth_date.date' => 'The birth date field must be date.',
+            'add_gender_id.required' => 'The gender field is required.',
+            'add_address.required' => 'The address field is required.',
+            'add_address.max' => 'The address field must not greater than 55 characters.',
+            'add_contact_number.required' => 'The contact number field is required.',
+            'add_contact_number.max' => 'The contact number must not greater than 20 characters.',
+            'add_email_address.required' => 'The email address field is required.',
+            'add_email_address.email' => 'The email address field must contain a valid email address.',
+            'add_username.required' => 'The username field is required.',
+            'add_username.min' => 'The username field must be at least 6 characters.',
+            'add_username.max' => 'The username field must not greater than 55 characters.',
+            'add_username.unique' => 'The username is already taken.',
+            'add_password.required' => 'The password field is required.',
+            'add_password.confirmed' => 'The password fied must match with password confirmation field.',
+            'add_password.min' => 'The password field must be at least 6 characters.',
+            'add_password.max' => 'The password field must not greater than 15 characters.',
+            'add_password_confirmation.required' => 'The password confirmation field is required.',
+            'add_password_confirmation.min' => 'The password confirmation field must be at least 6 characters.',
+            'add_password_confirmation.max' => 'The password confirmation field must not greater than 15 characters.',
+            'add_role_id.required' => 'The role field is required.',
         ]);
 
-        $firstName = FirstName::firstOrCreate(['first_name' => $validated['first_name_id']]);
-        $validated['first_name_id'] = $firstName->first_name_id;
+        $firstName = FirstName::firstOrCreate(['first_name' => $validated['add_first_name_id']]);
+        $validated['add_first_name_id'] = $firstName->first_name_id;
 
-        $middleName = MiddleName::firstOrCreate(['middle_name' => $validated['middle_name_id']]);
-        $validated['middle_name_id'] = $middleName->middle_name_id;
+        $middleName = MiddleName::firstOrCreate(['middle_name' => $validated['add_middle_name_id']]);
+        $validated['add_middle_name_id'] = $middleName->middle_name_id;
 
-        $lastName = LastName::firstOrCreate(['last_name' => $validated['last_name_id']]);
-        $validated['last_name_id'] = $lastName->last_name_id;
+        $lastName = LastName::firstOrCreate(['last_name' => $validated['add_last_name_id']]);
+        $validated['add_last_name_id'] = $lastName->last_name_id;
 
-        $suffixName = SuffixName::firstOrCreate(['suffix_name' => $validated['suffix_name_id']]);
-        $validated['suffix_name_id'] = $suffixName->suffix_name_id;
+        $suffixName = SuffixName::firstOrCreate(['suffix_name' => $validated['add_suffix_name_id']]);
+        $validated['add_suffix_name_id'] = $suffixName->suffix_name_id;
 
-        $validated['password'] = bcrypt($validated['password']);
+        $validated['add_password'] = bcrypt($validated['add_password']);
 
-        User::create($validated);
+        User::create([
+            'first_name_id' => $validated['add_first_name_id'],
+            'middle_name_id' => $validated['add_middle_name_id'],
+            'last_name_id' => $validated['add_last_name_id'],
+            'suffix_name_id' => $validated['add_suffix_name_id'],
+            'age' => $validated['add_age'],
+            'birth_date' => $validated['add_birth_date'],
+            'gender_id' => $validated['add_gender_id'],
+            'address' => $validated['add_address'],
+            'contact_number' => $validated['add_contact_number'],
+            'email_address' => $validated['add_email_address'],
+            'username' => $validated['add_username'],
+            'password' => $validated['add_password'],
+            'role_id' => $validated['add_role_id'],
+        ]);
 
         return back()->with('message_success', 'User successfully added.');
         
@@ -120,26 +154,50 @@ class UserController extends Controller
     public function update(Request $request, User $user) {
         session(['action' => 'update']);
         $validated = $request->validate([
-            'first_name_id' => ['required', 'max:55'],
-            'middle_name_id' => ['nullable', 'max:55'],
-            'last_name_id' => ['required', 'max:55'],
-            'suffix_name_id' => ['nullable', 'max:10'],
-            'age' => ['required', 'numeric'],
-            'birth_date' => ['required', 'date'],
-            'gender_id' => ['required'],
-            'address' => ['required', 'max:55'],
-            'contact_number' => ['required', 'max:20'],
-            'email_address' => ['required', 'email'],
-            'username' => ['required', 'min:6', 'max:12'],
-            'role_id' => ['required'],
+            'edit_first_name_id' => ['required', 'max:55'],
+            'edit_middle_name_id' => ['nullable', 'max:55'],
+            'edit_last_name_id' => ['required', 'max:55'],
+            'edit_suffix_name_id' => ['nullable', 'max:10'],
+            'edit_age' => ['required', 'numeric'],
+            'edit_birth_date' => ['required', 'date'],
+            'edit_gender_id' => ['required'],
+            'edit_address' => ['required', 'max:55'],
+            'edit_contact_number' => ['required', 'max:20'],
+            'edit_email_address' => ['required', 'email'],
+            'edit_role_id' => ['required'],
         ], [
-            'first_name_id.required' => 'The first name field is required.',
-            'middle_name_id.required' => 'The middle name field is required.',
-            'last_name_id.required' => 'The last name field is required.',
-            'suffix_name_id.required' => 'The suffix name field is required.',
-            'gender_id.required' => 'The gender field is required.',
-            'role_id.required' => 'The role field is required.',
+            'edit_first_name_id.required' => 'The first name field is required.',
+            'edit_middle_name_id.required' => 'The middle name field is required.',
+            'edit_last_name_id.required' => 'The last name field is required.',
+            'edit_suffix_name_id.required' => 'The suffix name field is required.',
+            'edit_age.required' => 'The age field is required.',
+            'edit_birth_date.required' => 'The birth date field is required.',
+            'edit_birth_date.date' => 'The birth date field must be date.',
+            'edit_gender_id.required' => 'The gender field is required.',
+            'edit_address.required' => 'The address field is required.',
+            'edit_address.max' => 'The address field must not greater than 55 characters.',
+            'edit_contact_number.required' => 'The contact number field is required.',
+            'edit_contact_number.max' => 'The contact number must not greater than 20 characters.',
+            'edit_email_address.required' => 'The email address field is required.',
+            'edit_email_address.email' => 'The email address field must contain a valid email address.',
+            'edit_role_id.required' => 'The role field is required.',
         ]);
+
+        // $firstName = FirstName::firstOrCreate(['first_name' => $validated['first_name_id']]);
+        // $validated['first_name_id'] = $firstName->first_name_id;
+
+        // $middleName = MiddleName::firstOrCreate(['middle_name' => $validated['middle_name_id']]);
+        // $validated['middle_name_id'] = $middleName->middle_name_id;
+
+        // $lastName = LastName::firstOrCreate(['last_name' => $validated['last_name_id']]);
+        // $validated['last_name_id'] = $lastName->last_name_id;
+
+        // $suffixName = SuffixName::firstOrCreate(['suffix_name' => $validated['suffix_name_id']]);
+        // $validated['suffix_name_id'] = $suffixName->suffix_name_id;
+
+        // $user->update($validated);
+
+        // return back()->with('message_success', ($middleName) ? $firstName->first_name . ' ' . $middleName->middle_name . ' ' . $lastName->last_name . ' SUCCESSFULLY UPDATED.' : $firstName->first_name . ' ' . $lastName->last_name . ' SUCCESSFULLY UPDATED.');
 
         return dd($validated);
     }
