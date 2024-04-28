@@ -80,6 +80,7 @@ class UserController extends Controller
             'add_last_name_id.required' => 'The last name field is required.',
             'add_suffix_name_id.required' => 'The suffix name field is required.',
             'add_age.required' => 'The age field is required.',
+            'add_age.numeric' => 'The age field must be a number.',
             'add_birth_date.required' => 'The birth date field is required.',
             'add_birth_date.date' => 'The birth date field must be date.',
             'add_gender_id.required' => 'The gender field is required.',
@@ -94,12 +95,12 @@ class UserController extends Controller
             'add_username.max' => 'The username field must not greater than 55 characters.',
             'add_username.unique' => 'The username is already taken.',
             'add_password.required' => 'The password field is required.',
-            'add_password.confirmed' => 'The password fied must match with password confirmation field.',
+            'add_password.confirmed' => 'The password fied must match with confirm password field.',
             'add_password.min' => 'The password field must be at least 6 characters.',
             'add_password.max' => 'The password field must not greater than 15 characters.',
-            'add_password_confirmation.required' => 'The password confirmation field is required.',
-            'add_password_confirmation.min' => 'The password confirmation field must be at least 6 characters.',
-            'add_password_confirmation.max' => 'The password confirmation field must not greater than 15 characters.',
+            'add_password_confirmation.required' => 'The confirm password field is required.',
+            'add_password_confirmation.min' => 'The confirm password field must be at least 6 characters.',
+            'add_password_confirmation.max' => 'The confirm password field must not greater than 15 characters.',
             'add_role_id.required' => 'The role field is required.',
         ]);
 
@@ -164,6 +165,7 @@ class UserController extends Controller
             'edit_address' => ['required', 'max:55'],
             'edit_contact_number' => ['required', 'max:20'],
             'edit_email_address' => ['required', 'email'],
+            'edit_username' => ['required', 'min:6', 'max:12', Rule::unique('users', 'username')->ignore($user)],
             'edit_role_id' => ['required'],
         ], [
             'edit_first_name_id.required' => 'The first name field is required.',
@@ -171,6 +173,7 @@ class UserController extends Controller
             'edit_last_name_id.required' => 'The last name field is required.',
             'edit_suffix_name_id.required' => 'The suffix name field is required.',
             'edit_age.required' => 'The age field is required.',
+            'edit_age.numeric' => 'The age field must be a number.',
             'edit_birth_date.required' => 'The birth date field is required.',
             'edit_birth_date.date' => 'The birth date field must be date.',
             'edit_gender_id.required' => 'The gender field is required.',
@@ -180,6 +183,10 @@ class UserController extends Controller
             'edit_contact_number.max' => 'The contact number must not greater than 20 characters.',
             'edit_email_address.required' => 'The email address field is required.',
             'edit_email_address.email' => 'The email address field must contain a valid email address.',
+            'edit_username.required' => 'The username field is required.',
+            'edit_username.min' => 'The username field must be at least 6 characters.',
+            'edit_username.max' => 'The username field must not greater than 55 characters.',
+            'edit_username.unique' => 'The username is already taken.',
             'edit_role_id.required' => 'The role field is required.',
         ]);
 
