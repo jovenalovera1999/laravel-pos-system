@@ -148,6 +148,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const addUserModal = new bootstrap.Modal(document.getElementById('addUserModal'));
         addUserModal.show();
     @elseif ($errors->any() && session('action') == 'update')
+        document.getElementById('editUserForm').action = '/user/update/' + {{  session('user_id')}};
+
         const editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'));
         editUserModal.show();
     @endif

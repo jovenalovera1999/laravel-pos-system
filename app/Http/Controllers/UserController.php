@@ -153,7 +153,7 @@ class UserController extends Controller
     }
 
     public function update(Request $request, User $user) {
-        session(['action' => 'update']);
+        session(['action' => 'update', 'user_id' => $user->user_id]);
         $validated = $request->validate([
             'edit_first_name_id' => ['required', 'max:55'],
             'edit_middle_name_id' => ['nullable', 'max:55'],
@@ -190,22 +190,34 @@ class UserController extends Controller
             'edit_role_id.required' => 'The role field is required.',
         ]);
 
-        // $firstName = FirstName::firstOrCreate(['first_name' => $validated['first_name_id']]);
-        // $validated['first_name_id'] = $firstName->first_name_id;
+        $firstName = FirstName::firstOrCreate(['first_name' => $validated['edit_first_name_id']]);
+        $validated['edit_first_name_id'] = $firstName->first_name_id;
 
-        // $middleName = MiddleName::firstOrCreate(['middle_name' => $validated['middle_name_id']]);
-        // $validated['middle_name_id'] = $middleName->middle_name_id;
+        $middleName = MiddleName::firstOrCreate(['middle_name' => $validated['edit_middle_name_id']]);
+        $validated['edit_middle_name_id'] = $middleName->middle_name_id;
 
-        // $lastName = LastName::firstOrCreate(['last_name' => $validated['last_name_id']]);
-        // $validated['last_name_id'] = $lastName->last_name_id;
+        $lastName = LastName::firstOrCreate(['last_name' => $validated['edit_last_name_id']]);
+        $validated['edit_last_name_id'] = $lastName->last_name_id;
 
-        // $suffixName = SuffixName::firstOrCreate(['suffix_name' => $validated['suffix_name_id']]);
-        // $validated['suffix_name_id'] = $suffixName->suffix_name_id;
+        $suffixName = SuffixName::firstOrCreate(['suffix_name' => $validated['edit_suffix_name_id']]);
+        $validated['edit_suffix_name_id'] = $suffixName->suffix_name_id;
 
-        // $user->update($validated);
+        $user->update([
+            'first_name_id' => $validated['edit_first_name_id'],
+            'middle_name_id' => $validated['edit_middle_name_id'],
+            'last_name_id' => $validated['edit_last_name_id'],
+            'suffix_name_id' => $validated['edit_suffix_name_id'],
+            'age' => $validated['edit_age'],
+            'birth_date' => $validated['edit_birth_date'],
+            'gender_id' => $validated['edit_gender_id'],
+            'address' => $validated['edit_address'],
+            'contact_number' => $validated['edit_contact_number'],
+            'email_address' => $validated['edit_email_address'],
+            'role_id' => $validated['edit_role_id'],
+        ]);
 
-        // return back()->with('message_success', ($middleName) ? $firstName->first_name . ' ' . $middleName->middle_name . ' ' . $lastName->last_name . ' SUCCESSFULLY UPDATED.' : $firstName->first_name . ' ' . $lastName->last_name . ' SUCCESSFULLY UPDATED.');
+        return back()->with('message_success', ($middleName) ? $firstName->first_name . ' ' . $middleName->middle_name . ' ' . $lastName->last_name . ' SUCCESSFULLY UPDATED.' : $firstName->first_name . ' ' . $lastName->last_name . ' SUCCESSFULLY UPDATED.');
 
-        return dd($validated);
+        // return dd($validated);
     }
 }
