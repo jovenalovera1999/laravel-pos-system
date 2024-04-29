@@ -54,6 +54,7 @@
                                     <div class="btn-group" role="group" aria-label="Action Buttons">
                                         <a href="#" class="btn btn-primary btn_view" data-bs-toggle="modal" data-bs-target="#viewUserModal" data-id="{{ $user->user_id }}">VIEW</a>
                                         <a href="#" class="btn btn-success btn_edit" data-bs-toggle="modal" data-bs-target="#editUserModal" data-id="{{ $user->user_id }}">EDIT</a>
+                                        <a href="#" class="btn btn-danger btn_delete" data-bs-toggle="modal" data-bs-target="#deleteUserModal" data-id="{{ $user->user_id }}">DELETE</a>
                                     </div>
                                 </td>
                             </tr>
@@ -140,6 +141,43 @@ document.addEventListener('DOMContentLoaded', function() {
             };
 
             xhr.open('GET', '/user/edit/' + id);
+            xhr.send();
+        });
+    });
+
+    const btnDelete = document.querySelectorAll('.btn_delete');
+    btnDelete.forEach(function(button) {
+        button.addEventListener('click', function() {
+            const id = this.dataset.id;
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState === XMLHttpRequest.DONE) {
+                    if(xhr.status === 200) {
+                        const user = JSON.parse(xhr.responseText);
+                        
+                        // Update input fields with user data and show the modal
+                        document.getElementById('delete_first_name_id').value = user.first_name || '';
+                        document.getElementById('delete_middle_name_id').value = user.middle_name || '';
+                        document.getElementById('delete_last_name_id').value = user.last_name || '';
+                        document.getElementById('delete_suffix_name_id').value = user.suffix_name || '';
+                        document.getElementById('delete_age').value = user.age || '';
+                        document.getElementById('delete_birth_date').value = user.birth_date || '';
+                        document.getElementById('delete_gender_id').value = user.gender || '';
+                        document.getElementById('delete_address').value = user.address || '';
+                        document.getElementById('delete_contact_number').value = user.contact_number || '';
+                        document.getElementById('delete_email_address').value = user.email_address || '';
+                        document.getElementById('delete_username').value = user.username || '';
+                        document.getElementById('delete_role_id').value = user.role || '';
+
+                        // Set the action attribute of the form to include the user ID
+                        document.getElementById('deleteUserForm').action = '/user/destroy/' + user.user_id;
+                    } else {
+                        console.error('Error fetching user data');
+                    }
+                }
+            };
+
+            xhr.open('GET', '/user/delete/' + id);
             xhr.send();
         });
     });

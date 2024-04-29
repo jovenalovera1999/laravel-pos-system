@@ -307,3 +307,92 @@
         </div>
     </div>
 </div>
+
+<!-- Delete User Modal -->
+<div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteUserModalLabel">ARE YOU SURE DO YOU WANT TO DELETE THIS USER?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="post" id="deleteUserForm">
+                    @method('DELETE')
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="delete_first_name" class="form-label">FIRST NAME</label>
+                                <input type="text" class="form-control" id="delete_first_name_id"
+                                    name="delete_first_name_id" readonly />
+                            </div>
+                            <div class="mb-3">
+                                <label for="delete_middle_name" class="form-label">MIDDLE NAME</label>
+                                <input type="text" class="form-control" id="delete_middle_name_id"
+                                    name="delete_middle_name_id" readonly />
+                            </div>
+                            <div class="mb-3">
+                                <label for="delete_last_name" class="form-label">LAST NAME</label>
+                                <input type="text" class="form-control" id="delete_last_name_id" name="view_last_name_id"
+                                    readonly />
+                            </div>
+                            <div class="mb-3">
+                                <label for="delete_suffix_name" class="form-label">SUFFIX NAME</label>
+                                <input type="text" class="form-control" id="delete_suffix_name_id"
+                                    name="delete_suffix_name_id" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="delete_age" class="form-label">AGE</label>
+                                <input type="text" class="form-control" id="delete_age" name="delete_age" readonly />
+                            </div>
+                            <div class="mb-3">
+                                <label for="delete_birth_date" class="form-label">BIRTH DATE</label>
+                                <input type="text" class="form-control" id="delete_birth_date" name="delete_birth_date"
+                                    readonly />
+                            </div>
+                            <div class="mb-3">
+                                <label for="delete_gender_id" class="form-label">GENDER</label>
+                                <input type="text" class="form-control" id="delete_gender_id" name="delete_gender_id"
+                                    readonly />
+                            </div>
+                            <div class="mb-3">
+                                <label for="delete_address" class="form-label">ADDRESS</label>
+                                <input type="text" class="form-control" id="delete_address" name="delete_address"
+                                    readonly />
+                            </div>
+                            <div class="mb-3">
+                                <label for="delete_contact_number" class="form-label">CONTACT NUMBER</label>
+                                <input type="text" class="form-control" id="delete_contact_number"
+                                    name="delete_contact_number" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="delete_email_address" class="form-label">EMAIL ADDRESS</label>
+                                <input type="text" class="form-control" id="delete_email_address"
+                                    name="delete_email_address" readonly />
+                            </div>
+                            <div class="mb-3">
+                                <label for="delete_username" class="form-label">USERNAME</label>
+                                <input type="text" class="form-control" id="delete_username" name="delete_username"
+                                    readonly />
+                            </div>
+                            <div class="mb-3">
+                                <label for="view_role_id" class="form-label">ROLE</label>
+                                <input type="text" class="form-control" id="delete_role_id" name="delete_role_id"
+                                    readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
+                        <button type="submit" class="btn btn-danger">YES</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

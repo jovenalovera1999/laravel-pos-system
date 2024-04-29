@@ -23,7 +23,7 @@ class UserController extends Controller
             ->leftJoin('suffix_names', 'users.suffix_name_id', '=', 'suffix_names.suffix_name_id')
             ->leftJoin('genders', 'users.gender_id', '=', 'genders.gender_id')
             ->leftJoin('roles', 'users.role_id', '=', 'roles.role_id')
-            ->orderBy('last_names.last_name', 'asc');
+            ->where('users.is_deleted', false);
 
         if(request()->has('search')) {
             $searchTerm = request()->get('search');
@@ -34,7 +34,8 @@ class UserController extends Controller
                         ->orWhere('middle_names.middle_name', 'like', "%$searchTerm%")
                         ->orWhere('last_names.last_name', 'like', "%$searchTerm%")
                         ->orWhere('users.email_address', 'like', "%$searchTerm%")
-                        ->orWhere('roles.role', 'like', "%$searchTerm%");
+                        ->orWhere('roles.role', 'like', "%$searchTerm%")
+                        ->where('users.is_deleted', false);
                 });
             }
         }
@@ -219,5 +220,23 @@ class UserController extends Controller
         return back()->with('message_success', ($middleName) ? $firstName->first_name . ' ' . $middleName->middle_name . ' ' . $lastName->last_name . ' SUCCESSFULLY UPDATED.' : $firstName->first_name . ' ' . $lastName->last_name . ' SUCCESSFULLY UPDATED.');
 
         // return dd($validated);
+    }
+
+    public function delete($id) {
+        $user = User::leftJoin('first_names', 'users.first_name_id', '=', 'first_names.first_name_id')
+            ->leftJoin('middle_names', 'users.middle_name_id', '=', 'middle_names.middle_name_id')
+            ->leftJoin('last_names', 'users.last_name_id', '=', 'last_names.last_name_id')
+            ->leftJoin('suffix_names', 'users.suffix_name_id', '=', 'suffix_names.suffix_name_id')
+            ->leftJoin('genders', 'users.gender_id', '=', 'genders.gender_id')
+            ->leftJoin('roles', 'users.role_id', '=', 'roles.role_id')
+            ->find($id);
+
+        return response()->json($user);
+    }
+
+    public function destroy(User $user) {
+        $user->update(['is_deleted' => true]);
+
+        return back()->with('message_success', ($user->middle_name) ? $user->first_name .' '. $user->middle_name . ' ' . $user->last_name . ' SUCCESSFULLY DELETED.' : $user->first_name . ' ' . $user->last_name . ' SUCCESSFULLY DELETED.');
     }
 }

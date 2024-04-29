@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('username', 55)->unique();
             $table->string('password', 255);
             $table->unsignedBigInteger('role_id');
+            $table->tinyInteger('is_online')->default(0);
             $table->tinyInteger('is_deleted')->default(0);
             $table->timestamps();
 
