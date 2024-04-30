@@ -14,129 +14,34 @@
                 PRODUCT</button>
         </div>
         <div class="row">
-            <div class="col-md-8">
-                <form action="#" method="get">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="SEARCH FOR PRODUCTS..."
-                            aria-label="SEARCH FOR PRODUCTS..." aria-describedby="search-button">
-                        <button class="btn btn-outline-secondary" type="button" id="search-button">SEARCH</button>
-                    </div>
-                </form>
-            </div>
+            <form action="/products" method="get">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="SEARCH FOR PRODUCTS..."
+                        aria-label="SEARCH FOR PRODUCTS..." aria-describedby="search-button">
+                    <button class="btn btn-outline-secondary" type="button" id="search-button">SEARCH</button>
+                </div>
+            </form>
         </div>
+        {{ $products->links() }}
         <div class="row row-cols-1 row-cols-md-5 g-4">
             <!-- Your card elements here -->
-            <div class="col">
-                <div class="card">
-                    <img src="{{ asset('img/products/buger.png') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text"><strong>NAME:</strong> BURGER</p>
-                        <p class="card-text"><strong>PRICE:</strong> $50.00</p>
-                        <p class="card-text"><strong>STOCKS LEFT:</strong> 87</p>
-                        <button class="btn btn-primary w-100">ADD TO CART</button>
+            @foreach ($products as $product)
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="{{ asset('img/products/buger.png') }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <p class="card-text"><strong>NAME:</strong> {{ $product->product_name }}</p>
+                            <p class="card-text"><strong>PRICE:</strong> {{ $product->price }}</p>
+                            <p class="card-text"><strong>STOCKS LEFT:</strong> {{ $product->quantity }}</p>
+                            <p class="card-text"><strong>CATEGORY:</strong> {{ ($product->category) ? $product->category : 'N/A' }}</p>
+                            <button class="btn btn-primary w-100">ADD TO CART</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="{{ asset('img/products/buger.png') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text"><strong>NAME:</strong> BURGER</p>
-                        <p class="card-text"><strong>PRICE:</strong> $50.00</p>
-                        <p class="card-text"><strong>STOCKS LEFT:</strong> 87</p>
-                        <button class="btn btn-primary w-100">ADD TO CART</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="{{ asset('img/products/buger.png') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text"><strong>NAME:</strong> BURGER</p>
-                        <p class="card-text"><strong>PRICE:</strong> $50.00</p>
-                        <p class="card-text"><strong>STOCKS LEFT:</strong> 87</p>
-                        <button class="btn btn-primary w-100">ADD TO CART</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="{{ asset('img/products/buger.png') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text"><strong>NAME:</strong> BURGER</p>
-                        <p class="card-text"><strong>PRICE:</strong> $50.00</p>
-                        <p class="card-text"><strong>STOCKS LEFT:</strong> 87</p>
-                        <button class="btn btn-primary w-100">ADD TO CART</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="{{ asset('img/products/buger.png') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text"><strong>NAME:</strong> BURGER</p>
-                        <p class="card-text"><strong>PRICE:</strong> $50.00</p>
-                        <p class="card-text"><strong>STOCKS LEFT:</strong> 87</p>
-                        <button class="btn btn-primary w-100">ADD TO CART</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="{{ asset('img/products/buger.png') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text"><strong>NAME:</strong> BURGER</p>
-                        <p class="card-text"><strong>PRICE:</strong> $50.00</p>
-                        <p class="card-text"><strong>STOCKS LEFT:</strong> 87</p>
-                        <button class="btn btn-primary w-100">ADD TO CART</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="{{ asset('img/products/buger.png') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text"><strong>NAME:</strong> BURGER</p>
-                        <p class="card-text"><strong>PRICE:</strong> $50.00</p>
-                        <p class="card-text"><strong>STOCKS LEFT:</strong> 87</p>
-                        <button class="btn btn-primary w-100">ADD TO CART</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="{{ asset('img/products/buger.png') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text"><strong>NAME:</strong> BURGER</p>
-                        <p class="card-text"><strong>PRICE:</strong> $50.00</p>
-                        <p class="card-text"><strong>STOCKS LEFT:</strong> 87</p>
-                        <button class="btn btn-primary w-100">ADD TO CART</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="{{ asset('img/products/buger.png') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text"><strong>NAME:</strong> BURGER</p>
-                        <p class="card-text"><strong>PRICE:</strong> $50.00</p>
-                        <p class="card-text"><strong>STOCKS LEFT:</strong> 87</p>
-                        <button class="btn btn-primary w-100">ADD TO CART</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="{{ asset('img/products/buger.png') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text"><strong>NAME:</strong> BURGER</p>
-                        <p class="card-text"><strong>PRICE:</strong> $50.00</p>
-                        <p class="card-text"><strong>STOCKS LEFT:</strong> 87</p>
-                        <button class="btn btn-primary w-100">ADD TO CART</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Repeat this card structure for other products -->
+            @endforeach
+        </div>
+        <div class="mt-3">
+            {{ $products->links() }}
         </div>
     </div>
 </main>

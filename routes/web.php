@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +24,7 @@ Route::get('/order', function() {
 });
 
 Route::controller(UserController::class)->group(function() {
-    Route::get('/user/list', 'index');
+    Route::get('/users', 'index');
     Route::get('/user/view/{id}', 'show');
     Route::get('/user/edit/{id}', 'edit');
     Route::get('/user/delete/{id}', 'delete');
@@ -31,4 +32,8 @@ Route::controller(UserController::class)->group(function() {
     Route::post('/user/store', 'store');
     Route::put('/user/update/{user}', 'update');
     Route::delete('/user/destroy/{user}', 'destroy');
+});
+
+Route::controller(ProductController::class)->group(function() {
+    Route::get('/products', 'index');
 });

@@ -18,11 +18,11 @@ class ProductFactory extends Factory
     {
         return [
             'product_code' => fake()->randomNumber(),
-            'product_name_id' => fake()->numberBetween(1, 10),
+            'product_name_id' => fake()->numberBetween(1, 14),
             'quantity' => fake()->numberBetween(10, 100),
             'price' => fake()->randomFloat(null, 25.25, 250.75),
-            'category_id' => fake()->numberBetween(1, 5),
-            'supplier_id' => fake()->numberBetween(1, 11),
+            'category_id' => fake()->numberBetween(1, 9),
+            'supplier_id' => fake()->numberBetween(1, 4),
         ];
     }
 }

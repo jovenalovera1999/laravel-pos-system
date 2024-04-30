@@ -59,7 +59,7 @@ class UserController extends Controller
     }
 
     public function store(Request $request) {
-        session(['action' => 'store']);
+        session(['action' => 'userStore']);
         $validated = $request->validate([
             'add_first_name_id' => ['required', 'max:55'],
             'add_middle_name_id' => ['nullable', 'max:55'],
@@ -154,7 +154,7 @@ class UserController extends Controller
     }
 
     public function update(Request $request, User $user) {
-        session(['action' => 'update', 'user_id' => $user->user_id]);
+        session(['action' => 'userUpdate', 'user_id' => $user->user_id]);
         $validated = $request->validate([
             'edit_first_name_id' => ['required', 'max:55'],
             'edit_middle_name_id' => ['nullable', 'max:55'],
@@ -236,6 +236,14 @@ class UserController extends Controller
 
     public function destroy(User $user) {
         $user->update(['is_deleted' => true]);
+
+        $user = User::leftJoin('first_names', 'users.first_name_id', '=', 'first_names.first_name_id')
+            ->leftJoin('middle_names', 'users.middle_name_id', '=', 'middle_names.middle_name_id')
+            ->leftJoin('last_names', 'users.last_name_id', '=', 'last_names.last_name_id')
+            ->leftJoin('suffix_names', 'users.suffix_name_id', '=', 'suffix_names.suffix_name_id')
+            ->leftJoin('genders', 'users.gender_id', '=', 'genders.gender_id')
+            ->leftJoin('roles', 'users.role_id', '=', 'roles.role_id')
+            ->find($user->user_id);
 
         return back()->with('message_success', ($user->middle_name) ? $user->first_name .' '. $user->middle_name . ' ' . $user->last_name . ' SUCCESSFULLY DELETED.' : $user->first_name . ' ' . $user->last_name . ' SUCCESSFULLY DELETED.');
     }
