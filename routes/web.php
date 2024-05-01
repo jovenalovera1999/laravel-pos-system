@@ -36,4 +36,6 @@ Route::controller(UserController::class)->group(function() {
 
 Route::controller(ProductController::class)->group(function() {
     Route::get('/products', 'index');
+
+    Route::post('/product/store', 'store');
 });

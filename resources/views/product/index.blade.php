@@ -2,7 +2,7 @@
 
 @section('content')
 
-<title>PAYMENT TRANSACTION</title>
+<title>PRODUCTS | POS SYSTEM</title>
 
 @include('include.sidebar')
 
@@ -16,7 +16,7 @@
         <div class="row">
             <form action="/products" method="get">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="SEARCH FOR PRODUCTS..."
+                    <input type="text" class="form-control" id="search" name="search" placeholder="SEARCH FOR PRODUCTS..."
                         aria-label="SEARCH FOR PRODUCTS..." aria-describedby="search-button">
                     <button class="btn btn-outline-secondary" type="button" id="search-button">SEARCH</button>
                 </div>
@@ -30,11 +30,19 @@
                     <div class="card h-100">
                         <img src="{{ asset('img/products/buger.png') }}" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <p class="card-text"><strong>NAME:</strong> {{ $product->product_name }}</p>
-                            <p class="card-text"><strong>PRICE:</strong> {{ $product->price }}</p>
-                            <p class="card-text"><strong>STOCKS LEFT:</strong> {{ $product->quantity }}</p>
-                            <p class="card-text"><strong>CATEGORY:</strong> {{ ($product->category) ? $product->category : 'N/A' }}</p>
-                            <button class="btn btn-primary w-100">ADD TO CART</button>
+                            <p class="card-text"><strong>NAME:</strong><br>{{ $product->product_name }}</p>
+                            <p class="card-text"><strong>PRICE:</strong><br>{{ $product->price }}</p>
+                            <p class="card-text"><strong>STOCKS LEFT:</strong><br>{{ $product->quantity }}</p>
+                            <p class="card-text"><strong>CATEGORY:</strong><br>{{ ($product->category) ? $product->category : 'N/A' }}</p>
+                            <p class="card-text"><strong>SUPPLIER:</strong><br>{{ ($product->supplier) ? $product->supplier : 'N/A' }}</p>
+                            <div class="row">
+                                <div class="col">
+                                    <button class="btn btn-success w-100">EDIT</button>
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-danger w-100">DELETE</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -43,66 +51,19 @@
         <div class="mt-3">
             {{ $products->links() }}
         </div>
+        @include('include.product_modal')
     </div>
 </main>
 
-<!-- Add Product Modal -->
-<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addProductModalLabel">Add Product</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Add your form fields for adding a product here -->
-                <form action="#" method="post">
-                    @csrf
-                    <div class="mb-3">
-                        <label for="transaction_number" class="form-label">TRANSACTION NO.</label>
-                        <input type="text" class="form-control" id="transaction_number" name="transaction_number">
-                    </div>
-                    <div class="mb-3">
-                        <label for="method_id" class="form-label">PAYMENT METHOD</label>
-                        <select class="form-select" id="method_id" name="method_id">
-                            <option selected>N/A</option>
-                            <option>CASH</option>
-                            <option>GCASH</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="name_id" class="form-label">CUSTOMER NAME</label>
-                        <input type="text" class="form-control" id="name_id" name="name_id">
-                    </div>
-                    <div class="mb-3">
-                        <label for="total_price" class="form-label">TOTAL PRICE</label>
-                        <input type="text" class="form-control" id="total_price" name="total_price">
-                    </div>
-                    <div class="mb-3">
-                        <label for="discount_id" class="form-label">DISCOUNT</label>
-                        <select class="form-select" id="discount_id" name="discount_id">
-                            <option selected>N/A</option>
-                            <option>SENIOR CITIZEN</option>
-                            <option>PWD</option>
-                            <option>VIP</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="amount" class="form-label">AMOUNT</label>
-                        <input type="text" class="form-control" id="amount" name="amount">
-                    </div>
-                    <div class="mb-3">
-                        <label for="change" class="form-label">CHANGE</label>
-                        <input type="text" class="form-control" id="change" name="change">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
-                        <button type="submit" class="btn btn-success">SAVE</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+<script>
+
+document.addEventListener('DOMContentLoaded', () => {
+    @if ($errors->any() && session('action') == 'productStore')
+        const addProductModal = new bootstrap.Modal(document.getElementById('addProductModal'));
+        addProductModal.show();
+    @endif
+});
+
+</script>
 
 @endsection

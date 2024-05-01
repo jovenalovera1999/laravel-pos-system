@@ -23,7 +23,10 @@ class UserController extends Controller
             ->leftJoin('suffix_names', 'users.suffix_name_id', '=', 'suffix_names.suffix_name_id')
             ->leftJoin('genders', 'users.gender_id', '=', 'genders.gender_id')
             ->leftJoin('roles', 'users.role_id', '=', 'roles.role_id')
-            ->where('users.is_deleted', false);
+            ->where('users.is_deleted', false)
+            ->orderBy('last_names.last_name', 'asc')
+            ->orderBy('first_names.first_name', 'asc')
+            ->orderBy('middle_names.middle_name', 'asc');
 
         if(request()->has('search')) {
             $searchTerm = request()->get('search');
@@ -34,8 +37,7 @@ class UserController extends Controller
                         ->orWhere('middle_names.middle_name', 'like', "%$searchTerm%")
                         ->orWhere('last_names.last_name', 'like', "%$searchTerm%")
                         ->orWhere('users.email_address', 'like', "%$searchTerm%")
-                        ->orWhere('roles.role', 'like', "%$searchTerm%")
-                        ->where('users.is_deleted', false);
+                        ->orWhere('roles.role', 'like', "%$searchTerm%");
                 });
             }
         }

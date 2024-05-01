@@ -52,7 +52,6 @@
                                 <td>{{ $user->role}}</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Action Buttons">
-                                        <a href="#" class="btn btn-primary btn_viewUser" data-bs-toggle="modal" data-bs-target="#viewUserModal" data-id="{{ $user->user_id }}">VIEW</a>
                                         <a href="#" class="btn btn-success btn_editUser" data-bs-toggle="modal" data-bs-target="#editUserModal" data-id="{{ $user->user_id }}">EDIT</a>
                                         <a href="#" class="btn btn-danger btn_deleteUser" data-bs-toggle="modal" data-bs-target="#deleteUserModal" data-id="{{ $user->user_id }}">DELETE</a>
                                     </div>
@@ -65,14 +64,13 @@
                 {{ $users->links() }}
             </div>
         </div>
+        @include('include.user_modal')
     </div>
 </main>
 
-@include('include.user_modal')
-
 <script>
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     @if ($errors->any() && session('action') == 'userStore')
         const addUserModal = new bootstrap.Modal(document.getElementById('addUserModal'));
         addUserModal.show();

@@ -14,7 +14,7 @@
             <ul>
                 <li><a href="#"><span>DASHBOARD</span></a></li>
                 <li><a href="#"><span>ORDER</span></a></li>
-                <li><a href="#"><span>PRODUCTS</span></a></li>
+                <li><a href="/products"><span>PRODUCTS</span></a></li>
                 <li><a href="#"><span>TRANSACTIONS</span></a></li>
                 <li><a href="/users"><span>USERS</span></a></li>
             </ul>
